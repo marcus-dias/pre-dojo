@@ -1,0 +1,9 @@
+br.com.amil.rankingbuilder.api
+br.com.amil.rankingbuilder.api.award
+br.com.amil.rankingbuilder.api.game
+br.com.amil.rankingbuilder.api.log.entry
+br.com.amil.rankingbuilder.api.log.reader
+br.com.amil.rankingbuilder.api.log.source
+br.com.amil.rankingbuilder.api.util
+br.com.amil.rankingbuilder.main
+br.com.amil.rankingbuilder.ui

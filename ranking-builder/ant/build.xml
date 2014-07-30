@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ranking-builder" default="create-jar" basedir=".">
+	<property file="build.properties" />
+
+	<path id="cp">
+		<fileset dir="${lib.junit}" includes="**/*.jar" />
+	</path>
+
+	<target name="init" description="Remove diretórios existentes do build">
+		<echo>TARGET: init</echo>
+
+		<delete dir="${dist.dir}" />
+		<delete dir="${classes.dir}" />
+
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${classes.dir}" />
+
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="init-javadoc" description="Remove diretórios existentes do javadoc">
+		<echo>TARGET: init-javadoc</echo>
+
+		<delete dir="${dist.dir}" />
+		<delete dir="${javadoc.dir}" />
+
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${javadoc.dir}" />
+	</target>
+
+	<target name="compile" depends="init" description="Compila fontes da aplicação">
+		<echo>TARGET: compile</echo>
+
+		<javac srcdir="${src.dir}" destdir="${classes.dir}">
+			<classpath refid="cp" />
+		</javac>
+	</target>
+
+
+	<target name="create-jar" depends="compile" description="Cria o pacote jar da aplicação">
+		<echo>TARGET: create-jar</echo>
+
+		<jar basedir="${classes.dir}" destfile="${dist.dir}/${package.jar.name}">
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}"/>
+			</manifest>
+		</jar>
+
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="compile-tests" depends="compile" description="Compila os fontes de teste">
+		<echo>TARGET: compile-tests</echo>
+
+		<javac srcdir="${src.test.dir}" destdir="${classes.dir}">
+			<classpath refid="cp" />
+		</javac>
+	</target>
+
+	<target name="test" depends="compile-tests" description="Executa a suíte de testes da aplicação">
+		<echo>TARGET: test</echo>
+
+		<junit fork="yes" forkmode="once" printsummary="yes" haltonfailure="yes">
+			<formatter type="plain" usefile="false" />
+
+			<classpath path="${lib.junit}/hamcrest.jar"/>
+			<classpath path="${lib.junit}/junit.jar"/>
+
+			<classpath refid="cp" />
+			<classpath location="${classes.dir}" />
+
+			<test name="${test.suite}" />
+		</junit>
+	</target>
+
+	<target name="create-javadoc" depends="init-javadoc" description="Gera o javadoc da aplicação">
+		<echo>TARGET: create-javadoc</echo>
+
+		<javadoc sourcepath="${src.dir}" destdir="${javadoc.dir}" />
+	</target>
+</project>

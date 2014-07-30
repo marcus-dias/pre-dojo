@@ -1,2 +1,41 @@
-Coloque aqui suas instru��es ou coment�rios que ache �til/relevantes para possamos ler 
-quando estivermos avaliando a sua solu��o
+Nome do projeto: ranking-builder
+
+Ferramentas utilizadas:
+
+Eclipse LUNA - Release (4.4.0)
+
+Requisitos:
+
+JDK versão 1.8.11
+Ant versão 1.9.4
+
+
+Obs: A versão do Ant incluída no Eclipse não suporta Java 8. Pode-se executar o Ant direto pelo terminal ou configurar Ant como External Tool no Eclipse:
+
+	http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.user%2Ftasks%2Ftasks-ant-version.htm
+
+
+No diretório "ant" do projeto, há um script para efetuar o build, executar os testes unitários do projeto e gerar javadoc.
+
+
+Para efetuar o build do projeto:
+
+ant create-jar
+
+Será criado no projeto o diretório "dist" contendo o jar executável "ranking-builder.jar"
+
+
+Para executar os testes unitários:
+
+ant test
+
+Para gerar o javadoc:
+
+ant create-javadoc
+
+Será criado no projeto o diretório "javadoc" contendo o javadoc do projeto
+
+
+O aplicativo é modo texto. Para executar o aplicativo pelo terminal:
+
+java -jar ranking-builder.jar <caminho do arquivo de log>
